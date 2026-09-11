@@ -2,19 +2,19 @@
 
 ## Description
 
-Ce projet documente le déploiement d'Apache Airflow via Docker Compose et la création d'un pipeline de données automatisé simulant un traitement de ventes[cite: 1]. Il met en pratique la gestion des dépendances entre les tâches, la politique de reprise sur erreur et la traçabilité des processus de données[cite: 1, 2].
+Ce projet documente le déploiement d'Apache Airflow via Docker Compose et la création d'un pipeline de données automatisé simulant un traitement de ventes. Il met en pratique la gestion des dépendances entre les tâches, la politique de reprise sur erreur et la traçabilité des processus de données.
 
 ## Prérequis
 
-* Docker et Docker Compose installés et fonctionnels[cite: 1].
-* Au moins 4 Go de RAM disponibles pour les conteneurs Airflow[cite: 1].
+* Docker et Docker Compose installés et fonctionnels.
+* Au moins 4 Go de RAM disponibles pour les conteneurs Airflow.
 
 ## Structure du Projet
 
-* `docker-compose.yaml` : Fichier officiel démarrant les services nécessaires (scheduler, webserver, base de métadonnées)[cite: 1].
-* `.env` : Fichier d'environnement définissant les permissions de l'hôte (`AIRFLOW_UID`)[cite: 1].
-* `dags/pipeline_ventes.py` : Script Python contenant le graphe d'exécution (DAG) et les tâches du pipeline[cite: 1].
-* `logs/notifications.log` : Fichier généré localement pour consigner les alertes en cas d'échec définitif[cite: 1].
+* `docker-compose.yaml` : Fichier officiel démarrant les services nécessaires (scheduler, webserver, base de métadonnées).
+* `.env` : Fichier d'environnement définissant les permissions de l'hôte (`AIRFLOW_UID`).
+* `dags/pipeline_ventes.py` : Script Python contenant le graphe d'exécution (DAG) et les tâches du pipeline.
+* `logs/notifications.log` : Fichier généré localement pour consigner les alertes en cas d'échec définitif.
 
 ## Installation et Démarrage
 
@@ -31,23 +31,23 @@ Ce projet documente le déploiement d'Apache Airflow via Docker Compose et la cr
    docker compose up -d
    ```
 4. **Accéder à l'interface web** :
-   Ouvrez `http://localhost:8080` dans votre navigateur[cite: 1]. Les identifiants par défaut sont `airflow` pour le nom d'utilisateur et le mot de passe[cite: 1].
+   Ouvrez `http://localhost:8080` dans votre navigateur[cite: 1]. Les identifiants par défaut sont `airflow` pour le nom d'utilisateur et le mot de passe.
 
 ## Fonctionnement du Pipeline (`pipeline_ventes`)
 
 Le DAG orchestre quatre tâches de manière séquentielle :
 
-1. **extraction_ventes** : Simule l'extraction depuis la source[cite: 1].
-2. **nettoyage_donnees** : Simule le nettoyage des données avec une injection d'erreur aléatoire (60 % de probabilité) pour tester la gestion des pannes[cite: 1]. Cette tâche intègre :
-   * 3 tentatives de relance automatiques (`retries`)[cite: 1].
-   * Un délai d'attente de 30 secondes entre chaque essai (`retry_delay`)[cite: 1].
-   * Une notification (`on_failure_callback`) écrivant l'identifiant de l'erreur dans `notifications.log` si toutes les tentatives échouent[cite: 1].
-3. **agregation** : Simule l'agrégation par région[cite: 1].
-4. **chargement_dashboard** : Simule le chargement final vers la destination[cite: 1].
+1. **extraction_ventes** : Simule l'extraction depuis la source.
+2. **nettoyage_donnees** : Simule le nettoyage des données avec une injection d'erreur aléatoire (60 % de probabilité) pour tester la gestion des pannes. Cette tâche intègre :
+   * 3 tentatives de relance automatiques (`retries`).
+   * Un délai d'attente de 30 secondes entre chaque essai (`retry_delay`).
+   * Une notification (`on_failure_callback`) écrivant l'identifiant de l'erreur dans `notifications.log` si toutes les tentatives échouent.
+3. **agregation** : Simule l'agrégation par région.
+4. **chargement_dashboard** : Simule le chargement final vers la destination.
 
 ## Auditabilité et Traçabilité
 
-Airflow conserve un historique complet pour prouver le bon fonctionnement des automatisations[cite: 2]. Le détail des exécutions, la durée des tâches et l'historique des tentatives sont consultables depuis l'onglet **Task Instances** de l'interface web pour répondre aux exigences de conformité et d'audit[cite: 1, 2].
+Airflow conserve un historique complet pour prouver le bon fonctionnement des automatisations. Le détail des exécutions, la durée des tâches et l'historique des tentatives sont consultables depuis l'onglet **Task Instances** de l'interface web pour répondre aux exigences de conformité et d'audit.
 
 ## Questions
 
