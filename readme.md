@@ -31,7 +31,7 @@ Ce projet documente le déploiement d'Apache Airflow via Docker Compose et la cr
    docker compose up -d
    ```
 4. **Accéder à l'interface web** :
-   Ouvrez `http://localhost:8080` dans votre navigateur[cite: 1]. Les identifiants par défaut sont `airflow` pour le nom d'utilisateur et le mot de passe.
+   Ouvrez `http://localhost:8080` dans votre navigateur. Les identifiants par défaut sont `airflow` pour le nom d'utilisateur et le mot de passe.
 
 ## Fonctionnement du Pipeline (`pipeline_ventes`)
 
